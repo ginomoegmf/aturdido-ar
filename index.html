@@ -10,12 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
     <style>
-      html, body {
+      body {
         margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
         overflow: hidden;
+      }
+      #my-video {
+        display: none; /* Oculta el elemento de video */
       }
     </style>
   </head>
@@ -31,7 +31,7 @@
     >
       <a-assets>
         <!-- Video con transparencia -->
-        <video id="my-video" autoplay loop playsinline muted crossorigin="anonymous" style="display: none;">
+        <video id="my-video" autoplay loop playsinline muted crossorigin="anonymous" webkit-playsinline>
           <source src="./assets/aturdido.webm" type="video/webm" />
         </video>
       </a-assets>
@@ -41,14 +41,13 @@
 
       <!-- Imagen objetivo -->
       <a-entity mindar-image-target="targetIndex: 0">
-        <a-video
-          src="#my-video"
+        <!-- Usamos un plano con textura de video -->
+        <a-plane
           width="1"
           height="0.5625"
-          position="0 0 -1"
-          transparent="true"
-          shader="flat"
-        ></a-video>
+          position="0 0 0"
+          material="shader: flat; src: #my-video; transparent: true; alphaTest: 0.01"
+        ></a-plane>
       </a-entity>
     </a-scene>
   </body>
